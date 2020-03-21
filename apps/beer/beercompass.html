@@ -29,7 +29,7 @@
     </div>
     <div id="controls">
       <p>Find the area of interest</p>
-      <p>Click <button id="pubfinder" class="btn btn-primary">Find Bars</button></p>
+      <p>Click <button id="pubfinder" class="btn btn-primary">Find Pubs</button></p>
       <p>If ok, Click <button id="upload" class="btn btn-primary">Upload</button></p>
     </div>
 
@@ -77,7 +77,7 @@
 
       document.getElementById("pubfinder").addEventListener("click", function() {
         //var overpassApiUrl = buildOverpassApiUrl(map, "highway=bus_stop");
-        var overpassApiUrl = buildOverpassApiUrl(map, "amenity=bar");
+        var overpassApiUrl = buildOverpassApiUrl(map, "amenity=pub,bar");
         var req = new XMLHttpRequest();
         req.responseType = 'json';
         req.onreadystatechange = function() {

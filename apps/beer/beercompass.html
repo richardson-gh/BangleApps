@@ -40,22 +40,17 @@
 
     <script>
  /*
-
       https://overpass-turbo.eu/ to check queries.
       Run:
-
       node
         ({{bbox}});
       out;
-
       Over the area you're interested in, click on the POI and find out
       what you need to search for, eg.
-
         node
         [amenity=pub]
         ({{bbox}});
       out;
-
 */
 
       var map = L.map('map').locate({setView: true, maxZoom: 16});
@@ -77,7 +72,7 @@
 
       document.getElementById("pubfinder").addEventListener("click", function() {
         //var overpassApiUrl = buildOverpassApiUrl(map, "highway=bus_stop");
-        var overpassApiUrl = buildOverpassApiUrl(map, "["amenity"~"pub|bar"]");
+        var overpassApiUrl = buildOverpassApiUrl(map, "amenity~pub|bar");
         var req = new XMLHttpRequest();
         req.responseType = 'json';
         req.onreadystatechange = function() {
@@ -126,7 +121,6 @@
         var app = `var features = ${JSON.stringify(features)};
 var img_nofix = require("heatshrink").decompress(atob("mUyxH+ACYhJDygtYGsqLVF8u02gziGBoyhQ5gwDGRozRGCQydGCgybGCwyZC5gAaGPQwnGRAwpGQ4xwGFYyFDKsrlYxYDCsBmUyg4yXLyUsFwMyq1WAgUsNCRjUmVXroAEq8yMbcllkskwCEkplDmQwDq0sC54xEHQ9RqQAGqIwCFgOBAASYBSgMBltRAA0sgJsOGJeBxAAGwMrgIXIloxOJYNSvl8CwIDCqMBlYxNC4wxQDIOCwVYDIIDBGJ9YwV8rADBwRJCSqAVCAYaVMC4oxCPYYxQSo4xMSpIxPY4T5HY54XIMbIxKgwXKfKjhEllWGJNWlgXJGLNXruCGI+CrtXGKP+GJB9HMZ6VO/wxJcI8lfJclfKAxKfJEAGJIXLGKSvBWYQZCMZbfEqTHBGJYyFfIo1DGJ4tDGJQwCGJB9IMZyVNGIYyEfJQxPfJgwEMgoZJgAxMltRAA0tGJQyEksslkmAQklGINXxDTBFwIDCq8rC4YACC4gwJMowAJldWAAwwBABowIGJ4AYGJIymGBQylGBgyjGBwyhGCAzeF6YycGCwzYF7IzVF7o1PDqYA=="));
 var img_fix = require("heatshrink").decompress(atob("mUyxH+ACYhJDygtYGsqLVF94zaDYkq6wAOlQyYJo2A63VAAIoC2m0GI16My5/H5/V64ABGQIwBGQ+rTKwWHkhiBGIYwDGQ3VZioVIqoiBGAJhEGRFPGSYTIYwQxCGA4yFqodJGKeqSgQwJGQmkGKQSJfAYwLGQfPDxQwRgHVfAi/EAA4xLGQwRLYwb5BABoxQCBcA43G5wABAgIAMEBgxQ0QxB54xB5gAG4xgBBYOiGJ4PMGInPGIhcCGIt4EJoxPvHM5oxBGAnO6xrCGoXMqgxdpwxD5qQFL4QADlQxdgAhBGILIDMYoADEBwwPgCHBfQzHDAAb4NACTIIAA74OACLIIMo7GOACQoBZAoHBHQPNA4QwggGiZBA5B54HBY0DIKMYtUGMMqFYLIGY4jGhZAr6FAAYwiZAgxIY0TIFfQgADvAfR/zISGJTGR/wxRkj6CGJBiSGKL6DGP4xOGSKVDGAwxRGAQxU5oxcGR75DGJEkGCYxPlXM5vPGA/MlQxUGR1OGIL4I5lOGCgyOqgxBShHMqgwVGJt4GJd4GKwyMvHG5vGABAxMGBQyM1mtABWsGC4yLGBYABGDAyKGKwwQGZKVUF6b/OABowWGbAvZGaovdGp4dTA"));
-
 // https://github.com/Leaflet/Leaflet/blob/master/src/geo/projection/Projection.SphericalMercator.js
 function project(latlong) {
   var d = Math.PI / 180,
@@ -137,7 +131,6 @@ function project(latlong) {
   return {x:R * latlong.lon * d,
           y:R * Math.log((1 + sin) / (1 - sin)) / 2};
 }
-
 features.forEach(function(f) {
   f.p = project(f);
 });
@@ -145,7 +138,6 @@ var fix = {fix:false,satellites:0};
 var nearest = undefined;
 var nearestangle = 0;
 var nearestdist = 0;
-
 Bangle.on('GPS', function(f) {
   fix = f;
   fix.p = project(fix);
@@ -167,7 +159,6 @@ Bangle.on('GPS', function(f) {
     nearestangle = Math.atan2(dy,dx);
   }
 });
-
 Bangle.on('mag', function(m) {
   if (!Bangle.isLCDOn()) return;
   var headingrad = m.heading*Math.PI/180; // in radians
